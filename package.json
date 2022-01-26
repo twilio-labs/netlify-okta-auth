@@ -1,0 +1,49 @@
+{
+  "name": "@twilio-labs/netlify-okta-auth",
+  "version": "1.0.0",
+  "description": "Implement Okta-based access control for your static site hosted on Netlify",
+  "keywords": [
+    "okta",
+    "netlify"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "start": "ts-node -C ttypescript index.ts",
+    "build": "ttsc",
+    "test": "jest",
+    "prepack": "rimraf dist && yarn run build && rimraf dist/src/tests",
+    "preci": "rm -rf node_modules",
+    "ci": "yarn install --frozen-lockfile",
+    "prepare": "husky install"
+  },
+  "repository": "https://github.com/twilio-labs/netlify-okta-auth",
+  "author": "Twilio Labs",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "@types/jsonwebtoken": "^8.5.6",
+    "husky": "^7.0.4",
+    "jest": "^27.4.5",
+    "nock": "^13.2.1",
+    "nodemon": "^2.0.15",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.1.2",
+    "ts-node": "^10.4.0",
+    "ts-transformer-keys": "^0.4.3",
+    "ttypescript": "^1.5.13",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "@netlify/functions": "^0.10.0",
+    "constant-case": "^3.0.4",
+    "jwks-rsa": "^2.0.5",
+    "node-jsonwebtoken": "^0.0.1",
+    "strip-js": "^1.2.0"
+  }
+}
