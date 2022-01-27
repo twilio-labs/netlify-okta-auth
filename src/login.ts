@@ -4,8 +4,8 @@ import {
   getFallbackRawUrl,
   Options,
   loadOptionsFromEnvironment,
+  validateUrl,
 } from "./utils";
-import stripJs from "strip-js";
 
 export function getLoginHandler(options: Options = {}): Handler {
   // Primary lambda function handler
@@ -41,7 +41,7 @@ export function getLoginHandler(options: Options = {}): Handler {
         "?redirect_to=" + encodeURIComponent(authUrl.toString());
       targetRedirectUrl = prodLoginUrl.toString();
     } else if (event.queryStringParameters?.redirect_to) {
-      redirectToJs = stripJs(event.queryStringParameters.redirect_to);
+      redirectToJs = validateUrl(event.queryStringParameters.redirect_to);
     }
 
     if (!targetRedirectUrl) {
