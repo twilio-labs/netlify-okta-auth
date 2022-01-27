@@ -41,7 +41,7 @@ export function getLoginHandler(options: Options = {}): Handler {
         "?redirect_to=" + encodeURIComponent(authUrl.toString());
       targetRedirectUrl = prodLoginUrl.toString();
     } else if (event.queryStringParameters?.redirect_to) {
-      redirectToJs = validateUrl(event.queryStringParameters.redirect_to);
+      redirectToJs = validateUrl(event.queryStringParameters.redirect_to, "/");
     }
 
     if (!targetRedirectUrl) {
