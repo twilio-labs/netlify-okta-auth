@@ -7,6 +7,7 @@ import {
   loadOptionsFromEnvironment,
   jsonContentTypeHeader,
   Options,
+  validateUrl,
 } from "../utils";
 
 describe("getCookie", () => {
@@ -279,5 +280,27 @@ describe("loadOptions", () => {
         insecureCookies: true,
       },
     });
+  });
+});
+
+describe("validateUrl", () => {
+  test("Valid, relative URL succeeds", () => {
+    const result = validateUrl("/docs/foo");
+    expect(result).toEqual("/docs/foo");
+  });
+
+  test("Fully qualified URL shouldn't pass", () => {
+    const result = validateUrl("https://www.twilio.com/docs/foo");
+    expect(result).toEqual("");
+  });
+
+  test("JavaScript URL shouldn't pass", () => {
+    const result = validateUrl("javascript:alert('hi')");
+    expect(result).toEqual("");
+  });
+
+  test("Injection attempt should get sanitized", () => {
+    const result = validateUrl(`"; window.alert("hi"); //`);
+    expect(result).toEqual("/%22;%20window.alert(%22hi%22);%20//");
   });
 });

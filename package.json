@@ -1,6 +1,6 @@
 {
   "name": "@twilio-labs/netlify-okta-auth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Implement Okta-based access control for your static site hosted on Netlify",
   "keywords": [
     "okta",
@@ -43,7 +43,6 @@
     "@netlify/functions": "^0.10.0",
     "constant-case": "^3.0.4",
     "jwks-rsa": "^2.0.5",
-    "node-jsonwebtoken": "^0.0.1",
-    "strip-js": "^1.2.0"
+    "node-jsonwebtoken": "^0.0.1"
   }
 }

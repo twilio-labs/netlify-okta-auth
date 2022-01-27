@@ -96,3 +96,26 @@ export function getFallbackRawUrl(
   const base = `${protocol}//${hostHeader ? hostHeader : "localhost"}`;
   return new URL(path, base);
 }
+
+export function validateUrl(
+  urlString: string,
+  fallbackUrl: string = ""
+): string {
+  const lowerUrl = urlString.toLowerCase();
+  if (
+    lowerUrl.includes("javascript:") ||
+    lowerUrl.includes("http:") ||
+    lowerUrl.includes("https:")
+  ) {
+    return fallbackUrl;
+  }
+
+  let urlObject: URL;
+  try {
+    urlObject = new URL(urlString, "http://example.com");
+  } catch (err) {
+    return fallbackUrl;
+  }
+
+  return urlObject.toString().substring(18);
+}

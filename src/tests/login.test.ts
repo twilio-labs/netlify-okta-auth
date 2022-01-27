@@ -106,6 +106,23 @@ describe("login", () => {
     });
   });
 
+  test("redirect to Okta with JavaScript injection attack", async () => {
+    const javaScriptInjection = `"; window.alert("hi"); //`;
+    redirectTest({
+      expectedRedirectCookie: "/%22;%20window.alert(%22hi%22);%20//",
+      event: {
+        ...loginEvent,
+        rawUrl:
+          loginEvent.rawUrl +
+          "?redirect_to=" +
+          encodeURIComponent(javaScriptInjection),
+        queryStringParameters: {
+          redirect_to: javaScriptInjection,
+        },
+      },
+    });
+  });
+
   test("redirect to Okta with redirect_to using fallback raw url", async () => {
     redirectTest({
       expectedRedirectCookie: "/docs/foo",
