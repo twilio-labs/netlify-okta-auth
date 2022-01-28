@@ -123,6 +123,20 @@ describe("login", () => {
     });
   });
 
+  test("redirect to Okta with preview deploy URL", async () => {
+    const url = "http://www.local.twilio.com:8888/";
+    redirectTest({
+      expectedRedirectCookie: url,
+      event: {
+        ...loginEvent,
+        rawUrl: loginEvent.rawUrl + "?redirect_to=" + encodeURIComponent(url),
+        queryStringParameters: {
+          redirect_to: url,
+        },
+      },
+    });
+  });
+
   test("redirect to Okta with redirect_to using fallback raw url", async () => {
     redirectTest({
       expectedRedirectCookie: "/docs/foo",
