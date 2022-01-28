@@ -210,7 +210,7 @@ describe("loadOptions", () => {
     for (const key in process.env) {
       if (
         Object.prototype.hasOwnProperty.call(process.env, key) &&
-        key.startsWith("O4N_")
+        key.startsWith("NOA_")
       ) {
         process.env[key] = undefined;
       }
@@ -259,13 +259,13 @@ describe("loadOptions", () => {
       unsafe: { ...fakeOptions.unsafe },
     };
 
-    process.env.O4N_JWT_SECRET = "secret?";
-    process.env.O4N_PROD_BASE_URL = "prod?";
-    process.env.O4N_OKTA_URL = "okta?";
-    process.env.O4N_SITE_TITLE = "title?";
-    process.env.O4N_UNSAFE_DEBUG = "yes";
-    process.env.O4N_UNSAFE_IGNORE_TOKEN_EXPIRATION = "no";
-    process.env.O4N_UNSAFE_INSECURE_COOKIES = "true";
+    process.env.NOA_JWT_SECRET = "secret?";
+    process.env.NOA_PROD_BASE_URL = "prod?";
+    process.env.NOA_OKTA_URL = "okta?";
+    process.env.NOA_SITE_TITLE = "title?";
+    process.env.NOA_UNSAFE_DEBUG = "yes";
+    process.env.NOA_UNSAFE_IGNORE_TOKEN_EXPIRATION = "no";
+    process.env.NOA_UNSAFE_INSECURE_COOKIES = "true";
 
     loadOptionsFromEnvironment(options);
     expect(options).not.toEqual(fakeOptions);
@@ -284,17 +284,22 @@ describe("loadOptions", () => {
 });
 
 describe("validateUrl", () => {
-  test("Valid, relative URL succeeds", () => {
+  test("Relative URL succeeds", () => {
     const result = validateUrl("/docs/foo");
     expect(result).toEqual("/docs/foo");
   });
 
-  test("Fully qualified URL shouldn't pass", () => {
-    const result = validateUrl("https://www.twilio.com/docs/foo");
-    expect(result).toEqual("");
+  test("Fully qualified root URL succeeds", () => {
+    const result = validateUrl("http://www.local.twilio.com:8888/");
+    expect(result).toEqual("http://www.local.twilio.com:8888/");
   });
 
-  test("JavaScript URL shouldn't pass", () => {
+  test("Fully qualified deep URL succeeds", () => {
+    const result = validateUrl("https://www.twilio.com/docs/foo");
+    expect(result).toEqual("https://www.twilio.com/docs/foo");
+  });
+
+  test("JavaScript URL fails", () => {
     const result = validateUrl("javascript:alert('hi')");
     expect(result).toEqual("");
   });

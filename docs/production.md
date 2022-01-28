@@ -35,7 +35,7 @@ The JWT for your site needs to be signed with a shared secret and then we need t
 
 Use a password generator to generate a string of 64 characters (512 bits, [see this article](https://auth0.com/blog/brute-forcing-hs256-is-possible-the-importance-of-using-strong-keys-to-sign-jwts/)) and keep this somewhere safe.
 
-> 1Password is a good app to generate this string and it can also store it securely. There are many options here, just be sure the string you create is cryptographically random.
+> 1Password is a good app to generate this string, and it can also store it securely. There are many options here, just be sure the string you create is cryptographically random.
 
 For this guide, we will use `your-shared-secret` in place of the key that you generate.
 
@@ -47,10 +47,10 @@ For this guide, we will use `your-shared-secret` in place of the key that you ge
 4. Create the following variables:
    | Key | Value |
    | --- | --- |
-   | `O4N_JWT_SECRET` | `your-shared-secret` |
-   | `O4N_PROD_BASE_URL` | `https://my-production-site.netlify.app` |
-   | `O4N_OKTA_URL` | `https://your-company.okta.com/home/oidc_client/abcdef1234` |
-   > See the [configuration reference](./reference.md) for more on these and other settings.
+   | `NOA_JWT_SECRET` | `your-shared-secret` |
+   | `NOA_PROD_BASE_URL` | `https://my-production-site.netlify.app` |
+   | `NOA_OKTA_URL` | `https://your-company.okta.com/home/oidc_client/abcdef1234` |
+   > See the [configuration reference](./reference.md) for more on these and other settings. ("NOA" is an acronym for `netlify-okta-auth`.)
 5. Click **Save**.
 
 You will need to adjust these values to match your setup.

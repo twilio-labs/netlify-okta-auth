@@ -30,12 +30,12 @@ The following environment variables can be set. Values set by environment variab
 
 For boolean values, you can specify `1`, `True`, or `Yes` (case-insensitive) for a positive value. Any other value will be treated as `false`.
 
-- `O4N_JWT_SECRET`
-- `O4N_PROD_BASE_URL`
-- `O4N_OKTA_URL`
-- `O4N_SITE_TITLE`
-- `O4N_UNSAFE_DEBUG`
-- `O4N_UNSAFE_IGNORE_TOKEN_EXPIRATION`
-- `O4N_UNSAFE_INSECURE_COOKIES`
+- `NOA_JWT_SECRET`
+- `NOA_PROD_BASE_URL`
+- `NOA_OKTA_URL`
+- `NOA_SITE_TITLE`
+- `NOA_UNSAFE_DEBUG`
+- `NOA_UNSAFE_IGNORE_TOKEN_EXPIRATION`
+- `NOA_UNSAFE_INSECURE_COOKIES`
 
 Read more about [how to set environment variables](https://docs.netlify.com/configure-builds/environment-variables/) in Netlify's docs.

@@ -30,7 +30,7 @@ export function parseBool(
 export function loadOptionsFromEnvironment(options: Options): void {
   const optionKeys = keys<Options>().filter((k) => k !== "unsafe");
   for (const optionKey of optionKeys) {
-    const envVarName = "O4N_" + constantCase(optionKey);
+    const envVarName = "NOA_" + constantCase(optionKey);
     (options as any)[optionKey] =
       process.env?.[envVarName] ?? options[optionKey];
   }
@@ -38,7 +38,7 @@ export function loadOptionsFromEnvironment(options: Options): void {
   options.unsafe = options.unsafe ?? {};
   const unsafeKeys = keys<UnsafeFlags>();
   for (const flagKey of unsafeKeys) {
-    const envVarName = "O4N_UNSAFE_" + constantCase(flagKey);
+    const envVarName = "NOA_UNSAFE_" + constantCase(flagKey);
     options.unsafe[flagKey] = parseBool(envVarName, options.unsafe[flagKey]);
   }
 }
@@ -97,25 +97,26 @@ export function getFallbackRawUrl(
   return new URL(path, base);
 }
 
+const dummyBase = "http://example.com";
+
 export function validateUrl(
   urlString: string,
   fallbackUrl: string = ""
 ): string {
   const lowerUrl = urlString.toLowerCase();
-  if (
-    lowerUrl.includes("javascript:") ||
-    lowerUrl.includes("http:") ||
-    lowerUrl.includes("https:")
-  ) {
+  if (lowerUrl.includes("javascript:")) {
     return fallbackUrl;
   }
 
   let urlObject: URL;
   try {
-    urlObject = new URL(urlString, "http://example.com");
+    urlObject = new URL(urlString, dummyBase);
   } catch (err) {
     return fallbackUrl;
   }
 
-  return urlObject.toString().substring(18);
+  const returnUrl = urlObject.toString();
+  return returnUrl.startsWith(dummyBase)
+    ? returnUrl.substring(dummyBase.length)
+    : returnUrl;
 }
